@@ -29,9 +29,9 @@ jobs:
       - name: Build package
         run: npm run build
 
-      - name: Check for existing release
+      - name: Create Unique Release
         id: check_release
-        uses: actions/github-script@v6
+        uses: actions/github-script@v7
         with:
           script: |
             const version = require('./package.json').version;
@@ -41,17 +41,16 @@ jobs:
             });
             if (releases.find(r => r.tag_name === `v${version}`)) {
               core.setFailed(`Release v${version} already exists.`);
+            } else {
+              await github.rest.repos.createRelease({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                tag_name: `v${version}`,
+                name: `Release v${version}`,
+                draft: false,
+                prerelease: false
+              });
             }
-          token: ${{ secrets.GITHUB_TOKEN }}
-
-      - name: Create GitHub Release
-        uses: actions/create-release@v1
-        with:
-          tag_name: v${{ steps.check_release.outputs.version }}
-          release_name: Release v${{ steps.check_release.outputs.version }}
-          draft: false
-          prerelease: false
-          token: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Publish to NPM
         env:
