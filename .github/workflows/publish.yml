@@ -29,6 +29,28 @@ jobs:
       - name: Build package
         run: npm run build
 
+      - name: Check for existing release
+        id: check_release
+        uses: actions/github-script@v6
+        with:
+          script: |
+            const version = require('./package.json').version;
+            const { data: releases } = await github.rest.repos.listReleases({
+              owner: context.repo.owner,
+              repo: context.repo.repo
+            });
+            if (releases.find(r => r.tag_name === `v${version}`)) {
+              core.setFailed(`Release v${version} already exists.`);
+            }
+
+      - name: Create GitHub Release
+        uses: actions/create-release@v1
+        with:
+          tag_name: v${{ steps.check_release.outputs.version }}
+          release_name: Release v${{ steps.check_release.outputs.version }}
+          draft: false
+          prerelease: false
+
       - name: Publish to NPM
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
