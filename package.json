@@ -1,6 +1,6 @@
 {
     "name": "@travbern/result-util",
-    "version": "0.1.0",
+    "version": "1.0.0",
     "description": "Some utilities for returning success/fail result objects",
     "type": "module",
     "scripts": {
@@ -10,8 +10,7 @@
         "build": "npm run build:clean && npm run build:esm && npm run build:cjs",
         "test": "tsx --test src/**/*.test.ts",
         "check": "biome check .",
-        "fix": "biome check . --write",
-        "prepare": "lefthook install"
+        "fix": "biome check . --write"
     },
     "repository": {
         "type": "git",
@@ -32,6 +31,9 @@
         "tsx": "4.20.4",
         "typescript": "5.9.2"
     },
+    "files": [
+        "dist"
+    ],
     "exports": {
         "./*": {
             "import": {
