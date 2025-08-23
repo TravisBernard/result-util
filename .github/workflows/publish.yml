@@ -1,12 +1,13 @@
 name: Publish
 
 env:
-  NODE_ENV: production
+  NODE_ENV: development
 
 on:
   push:
     branches:
       - trunk
+  workflow_dispatch:
 
 jobs:
   publish:
