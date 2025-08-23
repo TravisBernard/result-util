@@ -1,0 +1,49 @@
+{
+    "name": "@travbern/result",
+    "version": "1.0.0",
+    "description": "Some utilities for returning success/fail result objects",
+    "type": "module",
+    "scripts": {
+        "build:clean": "rm -rf ./dist",
+        "build:esm": "tsc",
+        "build:cjs": "tsc -p tsconfig.cjs.json",
+        "build": "npm run build:clean && npm run build:esm && npm run build:cjs",
+        "check": "biome check .",
+        "fix": "biome check . --write",
+        "prepare": "lefthook install"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/TravisBernard/result-util.git"
+    },
+    "author": "Travis Bernard <ibuildtheweb@gmail.com>",
+    "license": "MIT",
+    "bugs": {
+        "url": "https://github.com/TravisBernard/result-util/issues"
+    },
+    "homepage": "https://github.com/TravisBernard/result-util#readme",
+    "devDependencies": {
+        "@biomejs/biome": "2.2.2",
+        "@tsconfig/node-ts": "23.6.1",
+        "@tsconfig/node22": "22.0.2",
+        "@types/node": "24.3.0",
+        "lefthook": "^1.12.3",
+        "tsx": "4.20.4",
+        "typescript": "5.9.2"
+    },
+    "exports": {
+        "./*": {
+            "import": {
+                "types": "./dist/types/*.d.ts",
+                "default": "./dist/esm/*.js"
+            },
+            "require": {
+                "types": "./dist/types/*.d.ts",
+                "default": "./dist/cjs/*.js"
+            }
+        }
+    },
+    "main": "./dist/cjs/index.js",
+    "module": "./dist/esm/index.js",
+    "types": "./dist/types/index.d.ts"
+}
