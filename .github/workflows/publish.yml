@@ -42,6 +42,7 @@ jobs:
             if (releases.find(r => r.tag_name === `v${version}`)) {
               core.setFailed(`Release v${version} already exists.`);
             }
+          token: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Create GitHub Release
         uses: actions/create-release@v1
