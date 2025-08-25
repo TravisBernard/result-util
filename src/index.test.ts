@@ -20,6 +20,12 @@ suite("Ok", () => {
         assert.strictEqual(result.ok, true);
         assert.strictEqual(result.value.data, 42);
     });
+
+    test("can have an empty argument list", () => {
+        const result = Ok();
+        assert.strictEqual(result.ok, true);
+        assert.strictEqual(result.value, undefined);
+    });
 });
 
 suite("Err", () => {
@@ -27,6 +33,12 @@ suite("Err", () => {
         const result = Err({ message: "Error occurred" });
         assert.strictEqual(result.ok, false);
         assert.strictEqual(result.error.message, "Error occurred");
+    });
+
+    test("can have an empty argument list", () => {
+        const result = Err();
+        assert.strictEqual(result.ok, false);
+        assert.strictEqual(result.error, undefined);
     });
 });
 

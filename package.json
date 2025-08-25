@@ -1,6 +1,6 @@
 {
     "name": "@travbern/result-util",
-    "version": "1.0.0",
+    "version": "1.0.1",
     "description": "Some utilities for returning success/fail result objects",
     "type": "module",
     "scripts": {
@@ -24,8 +24,6 @@
     "homepage": "https://github.com/TravisBernard/result-util#readme",
     "devDependencies": {
         "@biomejs/biome": "2.2.2",
-        "@tsconfig/node-ts": "23.6.1",
-        "@tsconfig/node22": "22.0.2",
         "@types/node": "24.3.0",
         "lefthook": "^1.12.3",
         "tsx": "4.20.4",

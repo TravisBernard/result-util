@@ -37,7 +37,7 @@ import { isOk, isErr, type AnyResult } from "@travbern/result-util";
  * Use it when you don't want to capture the result value or when you don't care what the result value's type is
  */
 
-function checkResult(result: AnyResult): string {
+function checkResult(result: AnyResult): unknown {
     if (isOk(result)) {
         return result.value; // Ok types have a value field with the result data
     }
@@ -50,7 +50,7 @@ function checkResult(result: AnyResult): string {
  * Result types have an ok field you can also check directly if you hate utility functions and semantic code
  */
 
-function checkResultManually(result: AnyResult): string {
+function checkResultManually(result: AnyResult): unknown {
     if (result.ok) {
         return result.value;
     }
