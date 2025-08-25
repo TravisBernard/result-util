@@ -20,19 +20,35 @@ export type AnyResult = Result<unknown, unknown>;
 
 /**
  * Creates a successful result.
+ * @returns A ResultOk object with undefined value.
+ */
+export function Ok(): ResultOk<undefined>;
+
+/**
+ * Creates a successful result.
  * @param value - The value to wrap in a successful result.
  * @returns A ResultOk object.
  */
-export function Ok<O>(value: O): ResultOk<O> {
+export function Ok<O>(value: O): ResultOk<O>;
+
+export function Ok<O>(value?: O): ResultOk<O | undefined> {
     return { ok: true, value };
 }
+
+/**
+ * Creates an error result.
+ * @returns A ResultErr object with undefined error.
+ */
+export function Err(): ResultErr<undefined>;
 
 /**
  * Creates an error result.
  * @param error - The error to wrap in an error result.
  * @returns A ResultErr object.
  */
-export function Err<E>(error: E): ResultErr<E> {
+export function Err<E>(error: E): ResultErr<E>;
+
+export function Err<E>(error?: E): ResultErr<E | undefined> {
     return { ok: false, error };
 }
 
