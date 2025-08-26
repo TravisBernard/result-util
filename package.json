@@ -1,6 +1,6 @@
 {
     "name": "@travbern/result-util",
-    "version": "1.0.1",
+    "version": "1.0.2",
     "description": "Some utilities for returning success/fail result objects",
     "type": "module",
     "scripts": {
@@ -33,15 +33,10 @@
         "dist"
     ],
     "exports": {
-        "./*": {
-            "import": {
-                "types": "./dist/types/*.d.ts",
-                "default": "./dist/esm/*.js"
-            },
-            "require": {
-                "types": "./dist/types/*.d.ts",
-                "default": "./dist/cjs/*.js"
-            }
+        ".": {
+            "import": "./dist/esm/index.js",
+            "require": "./dist/cjs/index.js",
+            "types": "./dist/types/index.d.ts"
         }
     },
     "main": "./dist/cjs/index.js",
