@@ -1,6 +1,6 @@
 {
     "name": "@travbern/result-util",
-    "version": "1.0.2",
+    "version": "1.0.3",
     "description": "Some utilities for returning success/fail result objects",
     "type": "module",
     "scripts": {
