@@ -57,7 +57,7 @@ export function Err<E>(error?: E): ResultErr<E | undefined> {
  * @param result - The result to check.
  * @returns True if the result is a ResultOk, false otherwise.
  */
-export function isOk<O>(result: AnyResult): result is ResultOk<O> {
+export function isOk<O>(result: Result<O, unknown>): result is ResultOk<O> {
     return result.ok === true;
 }
 
@@ -66,7 +66,7 @@ export function isOk<O>(result: AnyResult): result is ResultOk<O> {
  * @param result - The result to check.
  * @returns True if the result is a ResultErr, false otherwise.
  */
-export function isErr<E>(result: AnyResult): result is ResultErr<E> {
+export function isErr<E>(result: Result<unknown, E>): result is ResultErr<E> {
     return result.ok === false;
 }
 
@@ -80,8 +80,10 @@ export class ResultMismatchError extends Error {}
  * @param result - The result to assert.
  * @throws ResultMismatchError if the result is not a ResultOk.
  */
-export function assertOk<O>(result: AnyResult): asserts result is ResultOk<O> {
-    if (!isOk<O>(result)) {
+export function assertOk<O>(
+    result: Result<O, unknown>,
+): asserts result is ResultOk<O> {
+    if (!isOk(result)) {
         throw new ResultMismatchError(`Expected Ok result, got Err`);
     }
 }
@@ -92,9 +94,9 @@ export function assertOk<O>(result: AnyResult): asserts result is ResultOk<O> {
  * @throws ResultMismatchError if the result is not a ResultErr.
  */
 export function assertErr<E>(
-    result: AnyResult,
+    result: Result<unknown, E>,
 ): asserts result is ResultErr<E> {
-    if (!isErr<E>(result)) {
+    if (!isErr(result)) {
         throw new ResultMismatchError(`Expected Err result, got Ok`);
     }
 }
@@ -105,8 +107,8 @@ export function assertErr<E>(
  * @returns The value of the successful result.
  * @throws ResultMismatchError if the result is not a ResultOk.
  */
-export function unwrapOk<O>(result: AnyResult): O {
-    assertOk<O>(result);
+export function unwrapOk<O>(result: Result<O, unknown>): O {
+    assertOk(result);
     return result.value;
 }
 
@@ -116,8 +118,8 @@ export function unwrapOk<O>(result: AnyResult): O {
  * @returns The error of the error result.
  * @throws ResultMismatchError if the result is not a ResultErr.
  */
-export function unwrapErr<E>(result: AnyResult): E {
-    assertErr<E>(result);
+export function unwrapErr<E>(result: Result<unknown, E>): E {
+    assertErr(result);
     return result.error;
 }
 
@@ -128,8 +130,8 @@ export function unwrapErr<E>(result: AnyResult): E {
  * @param result - The result to unwrap.
  * @returns The value of the successful result, or undefined.
  */
-export function unwrapOkSilently<O>(result: AnyResult): O | undefined {
-    if (isOk<O>(result)) {
+export function unwrapOkSilently<O>(result: Result<O, unknown>): O | undefined {
+    if (isOk(result)) {
         return result.value;
     }
     return undefined;
@@ -142,8 +144,10 @@ export function unwrapOkSilently<O>(result: AnyResult): O | undefined {
  * @param result - The result to unwrap.
  * @returns The error of the error result, or undefined.
  */
-export function unwrapErrSilently<E>(result: AnyResult): E | undefined {
-    if (isErr<E>(result)) {
+export function unwrapErrSilently<E>(
+    result: Result<unknown, E>,
+): E | undefined {
+    if (isErr(result)) {
         return result.error;
     }
     return undefined;
