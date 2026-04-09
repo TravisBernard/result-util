@@ -6,7 +6,7 @@
     "scripts": {
         "build:clean": "rm -rf ./dist",
         "build:esm": "tsc",
-        "build:cjs": "tsc -p tsconfig.cjs.json",
+        "build:cjs": "tsc -p tsconfig.cjs.json && echo '{\"type\":\"commonjs\"}' > dist/cjs/package.json",
         "build": "npm run build:clean && npm run build:esm && npm run build:cjs",
         "test": "tsx --test src/**/*.test.ts",
         "check": "biome check .",
